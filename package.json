@@ -1,7 +1,7 @@
 {
   "name": "alexa-sky-remote",
   "version": "1.0.0",
-  "description": "Alexa Skill - Sky Remote (uses PubNub)",
+  "description": "Alexa Skill - Sky Remote",
   "engines": {
     "node": ">=4.3.0"
   },
@@ -22,8 +22,8 @@
   "homepage": "https://github.com/code1up/alexa-sky-remote#readme",
   "dependencies": {
     "alexa-sdk": "^1.0.6",
-    "eyes": "^0.1.8",
-    "pubnub": "^4.3.3"
+    "aws-sdk": "^2.7.19",
+    "eyes": "^0.1.8"
   },
   "devDependencies": {
     "chai": "^3.5.0",

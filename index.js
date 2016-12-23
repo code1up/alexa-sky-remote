@@ -1,31 +1,34 @@
 'use strict';
 
 const Alexa = require('alexa-sdk');
-const PubNub = require('pubnub');
+const AWS = require('aws-sdk');
 
-const options = {
-    publishKey: process.env.PN_PUBLISH_KEY,
-    subscribeKey: process.env.PN_SUBSCRIBE_KEY,
-    ssl: true
+const sqsOptions = {
+    region: 'us-east-1'
 };
 
-const pubnub = new PubNub(options);
+const sqs = new AWS.SQS(sqsOptions);
 
-function channelUp() {
-    pubnub.publish(
-        {
-            message: {
-                command: 'channelup'
-            },
-            channel: 'alexa-sky-remote',
-            sendByPost: true,
-            storeInHistory: false
+const awsAccountId = process.env.AWS_ACCOUNT_ID;
+const sqsUrl = `https://sqs.us-east-1.amazonaws.com/${awsAccountId}/alexa-sky-remote`;
+
+function channelUp(/* callback */) {
+    var params = {
+        MessageBody: {
+            command: 'channelup'
         },
-        (status, response) => {
-            console.log(status);
-            console.log(response);
+        QueueUrl: sqsUrl
+    };
+
+    sqs.sendMessage(params, (err, data) => {
+        if (err) {
+            console.log('error:', 'Fail Send Message' + err);
+            // this.context.done('error', 'ERROR Put SQS');
+        } else {
+            console.log('data:', data.MessageId);
+            // this.context.done(null, '');
         }
-    );
+    });
 }
 
 const handlers = {
