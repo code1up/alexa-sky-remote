@@ -5,6 +5,7 @@ const PubNub = require('pubnub');
 
 const options = {
     publishKey: process.env.PN_PUBLISH_KEY,
+    subscribeKey: process.env.PN_SUBSCRIBE_KEY,
     ssl: true
 };
 
