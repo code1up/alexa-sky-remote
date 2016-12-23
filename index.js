@@ -12,11 +12,11 @@ const handlers = {
         this.emit(':tell', 'Welcome to Sky Remote for Amazon Echo.');
     },
 
-    UpChannel: function () {
+    UpChannelIntent: function () {
         this.emit(':tell', 'Up channel.');
     },
 
-    DownChannel: function () {
+    DownChannelIntent: function () {
         this.emit(':tell', 'Down channel.');
     },
 

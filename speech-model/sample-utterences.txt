@@ -1,7 +1,17 @@
 UpChannelIntent up channel
+UpChannelIntent up one channel
+UpChannelIntent change up
+UpChannelIntent change up one channel
+UpChannelIntent change channel up
 UpChannelIntent channel up
 UpChannelIntent next channel
 
 DownChannelIntent down channel
+DownChannelIntent down one channel
+DownChannelIntent change down
+DownChannelIntent change down one channel
+DownChannelIntent change channel down
 DownChannelIntent channel down
 DownChannelIntent previous channel
+DownChannelIntent prior channel
+DownChannelIntent last channel
