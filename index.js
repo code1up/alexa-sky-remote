@@ -13,10 +13,12 @@ const awsAccountId = process.env.AWS_ACCOUNT_ID;
 const sqsUrl = `https://sqs.us-east-1.amazonaws.com/${awsAccountId}/alexa-sky-remote`;
 
 function channelUp(/* callback */) {
-    var params = {
-        MessageBody: {
-            command: 'channelup'
-        },
+    const messageBody = {
+        command: 'channelup'
+    };
+
+    const params = {
+        MessageBody: JSON.stringify(messageBody),
         QueueUrl: sqsUrl
     };
 
