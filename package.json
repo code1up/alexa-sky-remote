@@ -1,0 +1,31 @@
+{
+  "name": "alexa-sky-remote",
+  "version": "1.0.0",
+  "description": "Alexa Skill - Sky Remote (uses PubNub)",
+  "engines": {
+    "node": ">=4.3.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "node_modules/.bin/eslint index.js src/ test/",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code1up/alexa-sky-remote.git"
+  },
+  "author": "Alan Gorton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code1up/alexa-sky-remote/issues"
+  },
+  "homepage": "https://github.com/code1up/alexa-sky-remote#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.12.2",
+    "mocha": "^3.2.0"
+  }
+}
