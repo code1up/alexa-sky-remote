@@ -1,0 +1,7 @@
+UpChannelIntent up channel
+UpChannelIntent channel up
+UpChannelIntent next channel
+
+DownChannelIntent down channel
+DownChannelIntent channel down
+DownChannelIntent previous channel
