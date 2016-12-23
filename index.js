@@ -18,7 +18,7 @@ function channelUp() {
                 command: 'channelup'
             },
             channel: 'alexa-sky-remote',
-            sendByPost: false,
+            sendByPost: true,
             storeInHistory: false
         },
         (status, response) => {

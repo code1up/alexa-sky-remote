@@ -11,6 +11,16 @@ const pubnub = new PubNub(options);
 
 eyes.inspect(options);
 
+pubnub.addListener({
+
+    message: function (message) {
+        eyes.inspect(message);
+    },
+    status: function (s) {
+        eyes.inspect(s);
+    }
+});
+
 pubnub.subscribe({
     channels: [
         'alexa-sky-remote'
