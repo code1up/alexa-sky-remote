@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "node_modules/.bin/eslint index.js src/ test/",
+    "lint": "node_modules/.bin/eslint index.js server/ test/",
     "test": "mocha"
   },
   "repository": {
@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/code1up/alexa-sky-remote#readme",
   "dependencies": {
-    "alexa-sdk": "^1.0.6"
+    "alexa-sdk": "^1.0.6",
+    "eyes": "^0.1.8",
+    "pubnub": "^4.3.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
