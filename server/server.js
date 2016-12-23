@@ -1,23 +1,42 @@
 const PubNub = require('pubnub');
+const eyes = require('eyes');
 
 const options = {
-    subscribeKey: process.env.PN_SUBSCRIBE_KEY,
     publishKey: process.env.PN_PUBLISH_KEY,
-    secretKey: process.env.PN_SECRET_KEY,
+    subscribeKey: process.env.PN_SUBSCRIBE_KEY,
     ssl: true
 };
 
 const pubnub = new PubNub(options);
 
-const inspect = require('eyes').inspect;
-
-inspect(options);
+eyes.inspect(options);
 
 pubnub.addListener({
-    message: function (message) {
-        inspect(message);
+    message: message => {
+        eyes.inspect(message);
     },
-    status: function (status) {
-        inspect(status);
+    status: status => {
+        eyes.inspect(status);
     }
 });
+
+pubnub.subscribe({
+    channels: [
+        'alexa-sky-remote'
+    ]
+});
+
+pubnub.publish(
+    {
+        message: {
+            such: 'object'
+        },
+        channel: 'alexa-sky-remote',
+        sendByPost: false,
+        storeInHistory: false
+    },
+    (status, response) => {
+        eyes.inspect(status);
+        eyes.inspect(response);
+    }
+);

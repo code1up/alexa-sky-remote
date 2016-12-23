@@ -1,7 +1,31 @@
 'use strict';
 
 const Alexa = require('alexa-sdk');
-// const PubNub = require('pubnub');
+const PubNub = require('pubnub');
+
+const options = {
+    publishKey: process.env.PN_PUBLISH_KEY,
+    ssl: true
+};
+
+const pubnub = new PubNub(options);
+
+function channelUp() {
+    pubnub.publish(
+        {
+            message: {
+                command: 'channelup'
+            },
+            channel: 'alexa-sky-remote',
+            sendByPost: false,
+            storeInHistory: false
+        },
+        (status, response) => {
+            console.log(status);
+            console.log(response);
+        }
+    );
+}
 
 const handlers = {
     LaunchRequest: function () {
@@ -14,11 +38,12 @@ const handlers = {
     },
 
     UpChannelIntent: function () {
-        this.emit(':tell', 'Up channel.');
+        channelUp();
+        this.emit(':tell', 'Channel up.');
     },
 
     DownChannelIntent: function () {
-        this.emit(':tell', 'Down channel.');
+        this.emit(':tell', 'Channel down.');
     },
 
     Unhandled: function () {
