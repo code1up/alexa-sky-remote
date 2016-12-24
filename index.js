@@ -5,8 +5,6 @@ const AWS = require('aws-sdk');
 
 const sqsOptions = {
     region: process.env.SQS_REGION,
-    accessKeyId: process.env.SQS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.SQS_SECRET_ACCESS_KEY,
     sslEnabled: true
 };
 
