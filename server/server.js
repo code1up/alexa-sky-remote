@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const inspect = require('eyes').inspector();
 const SkyRemote = require('sky-remote');
 
-const remoteControl = new SkyRemote(process.env.SKY_BOX_IP_ADDRESS);
+const skyRemote = new SkyRemote(process.env.SKY_BOX_IP_ADDRESS);
 
 const sqsOptions = {
     region: process.env.SQS_REGION,
@@ -50,7 +50,14 @@ function handleCommands() {
                 const button = command.count === 1 ?
                     'channelup' : 'channeldown';
 
-                remoteControl.press(button);
+                skyRemote.press(button);
+
+            } else if (command.name === 'set-channel') {
+                const numbers = command.channel.replace(/[0-9]/g, '$& ').trim();
+
+                inspect(numbers);
+
+                skyRemote.press(numbers);
             }
         }
 
