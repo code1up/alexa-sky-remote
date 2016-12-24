@@ -59,7 +59,7 @@ const handlers = {
             }
 
             console.error(`Changed channel: ${messageId}`);
-            this.emit(':tell', 'OK');
+            this.emit(':tell', 'OK, channel up.');
         });
     },
 
@@ -74,7 +74,7 @@ const handlers = {
             }
 
             console.error(`Changed channel: ${messageId}`);
-            this.emit(':tell', 'OK');
+            this.emit(':tell', 'OK, channel down.');
         });
     },
 
