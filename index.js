@@ -18,7 +18,7 @@ const sqsUrlParams = {
 
 const sqsUrl = `https://sqs.${sqsUrlParams.region}.amazonaws.com/${sqsUrlParams.accountId}/${sqsUrlParams.queueName}`;
 
-function channelUp(/* callback */) {
+function changeChannel(count, callback) {
     const command = {
         name: 'change-channel',
         count: 1
@@ -29,13 +29,11 @@ function channelUp(/* callback */) {
         QueueUrl: sqsUrl
     };
 
-    sqs.sendMessage(params, (err, data) => {
-        if (err) {
-            console.log('error:', 'Fail Send Message' + err);
-            // this.context.done('error', 'ERROR Put SQS');
+    sqs.sendMessage(params, (error, data) => {
+        if (error) {
+            callback(error);
         } else {
-            console.log('data:', data.MessageId);
-            // this.context.done(null, '');
+            callback(null, data.MessageId);
         }
     });
 }
@@ -51,8 +49,18 @@ const handlers = {
     },
 
     ChannelUpIntent: function () {
-        channelUp();
-        this.emit(':tell', 'Channel up.');
+        changeChannel(1, (error, messageId) => {
+            if (error) {
+                console.error('Failed to change channel');
+                console.error(error);
+
+                this.emit(':tell', 'Something went wrong trying to change the channel up.');
+                return;
+            }
+
+            console.error(`Changed channel: ${messageId}`);
+            this.emit(':tell', 'Channel up.');
+        });
     },
 
     ChannelDownIntent: function () {
