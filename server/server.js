@@ -53,9 +53,7 @@ function handleCommands() {
                 skyRemote.press(button);
 
             } else if (command.name === 'set-channel') {
-                const numbers = command.channel.replace(/[0-9]/g, '$& ').trim();
-
-                inspect(numbers);
+                const numbers = command.channel.split('');
 
                 skyRemote.press(numbers);
             }
