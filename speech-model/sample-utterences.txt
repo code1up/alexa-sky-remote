@@ -15,3 +15,18 @@ ChannelDownIntent channel down
 ChannelDownIntent previous channel
 ChannelDownIntent prior channel
 ChannelDownIntent last channel
+
+SetChannelIntent set channel to {channel}
+SetChannelIntent set channel {channel}
+SetChannelIntent set {channel}
+SetChannelIntent change channel to {channel}
+SetChannelIntent change to {channel}
+SetChannelIntent change {channel}
+SetChannelIntent go to channel {channel}
+SetChannelIntent go to {channel}
+SetChannelIntent go {channel}
+SetChannelIntent switch to channel {channel}
+SetChannelIntent switch to {channel}
+SetChannelIntent switch {channel}
+SetChannelIntent channel {channel}
+SetChannelIntent number {channel}

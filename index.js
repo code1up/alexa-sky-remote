@@ -38,6 +38,26 @@ function changeChannel(count, callback) {
     });
 }
 
+function setChannel(channel, callback) {
+    const command = {
+        name: 'set-channel',
+        channel: channel
+    };
+
+    const params = {
+        MessageBody: JSON.stringify(command),
+        QueueUrl: sqsUrl
+    };
+
+    sqs.sendMessage(params, (error, data) => {
+        if (error) {
+            callback(error);
+        } else {
+            callback(null, data.MessageId);
+        }
+    });
+}
+
 const handlers = {
     LaunchRequest: function () {
         console.log(this);
@@ -59,7 +79,7 @@ const handlers = {
             }
 
             console.error(`Changed channel: ${messageId}`);
-            this.emit(':tell', 'OK, channel up.');
+            this.emit(':tell', 'OK, changed channel up.');
         });
     },
 
@@ -74,7 +94,24 @@ const handlers = {
             }
 
             console.error(`Changed channel: ${messageId}`);
-            this.emit(':tell', 'OK, channel down.');
+            this.emit(':tell', 'OK, changed channel down.');
+        });
+    },
+
+    SetChannelIntent: function () {
+        const channel = this.event.request.intent.slots.channel.value;
+
+        setChannel(channel, (error, messageId) => {
+            if (error) {
+                console.error('Failed to change channel');
+                console.error(error);
+
+                this.emit(':tell', 'Something went wrong trying to change the channel.');
+                return;
+            }
+
+            console.error(`Changed channel: ${messageId}`);
+            this.emit(':tell', `OK, changed channel to ${channel}.`);
         });
     },
 

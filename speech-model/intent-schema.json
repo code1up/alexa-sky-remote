@@ -5,6 +5,15 @@
         },
         {
             "intent": "ChannelDownIntent"
+        },
+        {
+            "intent": "SetChannelIntent",
+            "slots": [
+                {
+                    "name": "channel",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
         }
     ]
 }
