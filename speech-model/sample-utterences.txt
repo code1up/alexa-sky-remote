@@ -1,17 +1,17 @@
-UpChannelIntent up channel
-UpChannelIntent up one channel
-UpChannelIntent change up
-UpChannelIntent change up one channel
-UpChannelIntent change channel up
-UpChannelIntent channel up
-UpChannelIntent next channel
+ChannelUpIntent up channel
+ChannelUpIntent up one channel
+ChannelUpIntent change up
+ChannelUpIntent change up one channel
+ChannelUpIntent change channel up
+ChannelUpIntent channel up
+ChannelUpIntent next channel
 
-DownChannelIntent down channel
-DownChannelIntent down one channel
-DownChannelIntent change down
-DownChannelIntent change down one channel
-DownChannelIntent change channel down
-DownChannelIntent channel down
-DownChannelIntent previous channel
-DownChannelIntent prior channel
-DownChannelIntent last channel
+ChannelDownIntent down channel
+ChannelDownIntent down one channel
+ChannelDownIntent change down
+ChannelDownIntent change down one channel
+ChannelDownIntent change channel down
+ChannelDownIntent channel down
+ChannelDownIntent previous channel
+ChannelDownIntent prior channel
+ChannelDownIntent last channel

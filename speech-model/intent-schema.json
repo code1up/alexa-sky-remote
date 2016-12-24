@@ -1,10 +1,10 @@
 {
     "intents": [
         {
-            "intent": "UpChannelIntent"
+            "intent": "ChannelUpIntent"
         },
         {
-            "intent": "DownChannelIntent"
+            "intent": "ChannelDownIntent"
         }
     ]
 }

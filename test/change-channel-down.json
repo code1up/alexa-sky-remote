@@ -1,0 +1,24 @@
+{
+    "session": {
+        "sessionId": "SessionId.e5f3dfcf-f136-4fec-818e-f74a07915d61",
+        "application": {
+            "applicationId": "amzn1.ask.skill.af6f7c32-b391-476e-ac67-0d5b7bed8192"
+        },
+        "attributes": {},
+        "user": {
+            "userId": "amzn1.ask.account.TestUserId"
+        },
+        "new": true
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "EdwRequestId.55244555-49fb-46c2-800f-cd7b24a6120d",
+        "locale": "en-GB",
+        "timestamp": "2016-12-24T01:23:45Z",
+        "intent": {
+            "name": "ChannelDownIntent",
+            "slots": {}
+        }
+    },
+    "version": "1.0"
+}
