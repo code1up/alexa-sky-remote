@@ -21,7 +21,7 @@ const sqsUrl = `https://sqs.${sqsUrlParams.region}.amazonaws.com/${sqsUrlParams.
 function changeChannel(count, callback) {
     const command = {
         name: 'change-channel',
-        count: 1
+        count: count
     };
 
     const params = {
@@ -54,17 +54,28 @@ const handlers = {
                 console.error('Failed to change channel');
                 console.error(error);
 
-                this.emit(':tell', 'Something went wrong trying to change the channel up.');
+                this.emit(':tell', 'Something went wrong trying to change the channel.');
                 return;
             }
 
             console.error(`Changed channel: ${messageId}`);
-            this.emit(':tell', 'Channel up.');
+            this.emit(':tell', 'OK');
         });
     },
 
     ChannelDownIntent: function () {
-        this.emit(':tell', 'Channel down.');
+        changeChannel(-1, (error, messageId) => {
+            if (error) {
+                console.error('Failed to change channel');
+                console.error(error);
+
+                this.emit(':tell', 'Something went wrong trying to change the channel.');
+                return;
+            }
+
+            console.error(`Changed channel: ${messageId}`);
+            this.emit(':tell', 'OK');
+        });
     },
 
     Unhandled: function () {

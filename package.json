@@ -23,7 +23,8 @@
   "dependencies": {
     "alexa-sdk": "^1.0.6",
     "aws-sdk": "^2.7.19",
-    "eyes": "^0.1.8"
+    "eyes": "^0.1.8",
+    "sky-remote": "^1.0.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",

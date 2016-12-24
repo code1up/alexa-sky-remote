@@ -1,5 +1,8 @@
 const AWS = require('aws-sdk');
-const eyes = require('eyes');
+const inspect = require('eyes').inspector();
+const SkyRemote = require('sky-remote');
+
+const remoteControl = new SkyRemote(process.env.SKY_BOX_IP_ADDRESS);
 
 const sqsOptions = {
     region: process.env.SQS_REGION,
@@ -19,26 +22,41 @@ const sqsUrl = `https://sqs.${sqsUrlParams.region}.amazonaws.com/${sqsUrlParams.
 const options = {
     QueueUrl: sqsUrl,
     MaxNumberOfMessages: 1,
-    VisibilityTimeout: 5,
-    WaitTimeSeconds: 3
+    VisibilityTimeout: 3,
+    WaitTimeSeconds: 20
 };
 
-client.receiveMessage(options, (error, data) => {
-    if (error) {
-        console.error(error);
-        return;
-    }
+handleCommands();
 
-    if (data.Messages) {
-        const message = data.Messages[0];
-        const body = JSON.parse(message.Body);
+function handleCommands() {
+    console.log('Waiting...');
 
-        eyes.inspect(body);
-        eyes.inspect(message);
+    client.receiveMessage(options, (error, data) => {
+        if (error) {
+            inspect(error);
+            return;
+        }
 
-        removeMessage(message);
-    }
-});
+        if (data.Messages) {
+            const message = data.Messages[0];
+            const command = JSON.parse(message.Body);
+
+            inspect(command);
+            inspect(message);
+
+            removeMessage(message);
+
+            if (command.name === 'change-channel') {
+                const button = command.count === 1 ?
+                    'channelup' : 'channeldown';
+
+                remoteControl.press(button);
+            }
+        }
+
+        handleCommands();
+    });
+}
 
 function removeMessage(message) {
     const options = {
@@ -48,11 +66,11 @@ function removeMessage(message) {
 
     const handler = (error, data) => {
         if (error) {
-            eyes.inspect(error);
+            inspect(error);
             return;
         }
 
-        eyes.inspect(data);
+        inspect(data);
     };
 
     client.deleteMessage(options, handler);
