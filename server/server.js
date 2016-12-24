@@ -1,28 +1,59 @@
-const PubNub = require('pubnub');
+const AWS = require('aws-sdk');
 const eyes = require('eyes');
 
-const options = {
-    publishKey: process.env.PN_PUBLISH_KEY,
-    subscribeKey: process.env.PN_SUBSCRIBE_KEY,
-    ssl: true
+const sqsOptions = {
+    region: process.env.SQS_REGION,
+    sslEnabled: true
 };
 
-const pubnub = new PubNub(options);
+const client = new AWS.SQS(sqsOptions);
 
-eyes.inspect(options);
+const sqsUrlParams = {
+    region: process.env.SQS_REGION,
+    accountId: process.env.AWS_ACCOUNT_ID,
+    queueName: process.env.SQS_COMMAND_QUEUE_NAME
+};
 
-pubnub.addListener({
+const sqsUrl = `https://sqs.${sqsUrlParams.region}.amazonaws.com/${sqsUrlParams.accountId}/${sqsUrlParams.queueName}`;
 
-    message: function (message) {
+const options = {
+    QueueUrl: sqsUrl,
+    MaxNumberOfMessages: 1,
+    VisibilityTimeout: 5,
+    WaitTimeSeconds: 3
+};
+
+client.receiveMessage(options, (error, data) => {
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    if (data.Messages) {
+        const message = data.Messages[0];
+        const body = JSON.parse(message.Body);
+
+        eyes.inspect(body);
         eyes.inspect(message);
-    },
-    status: function (s) {
-        eyes.inspect(s);
+
+        removeMessage(message);
     }
 });
 
-pubnub.subscribe({
-    channels: [
-        'alexa-sky-remote'
-    ]
-});
+function removeMessage(message) {
+    const options = {
+        QueueUrl: sqsUrl,
+        ReceiptHandle: message.ReceiptHandle
+    };
+
+    const handler = (error, data) => {
+        if (error) {
+            eyes.inspect(error);
+            return;
+        }
+
+        eyes.inspect(data);
+    };
+
+    client.deleteMessage(options, handler);
+}
